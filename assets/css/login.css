@@ -1,0 +1,42 @@
+.Login-reg-box {
+    width: 400px;
+    height: 310px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 20px;
+}
+
+.title {
+    height: 60px;
+    background: url(../images/login_title.png) no-repeat center;
+}
+
+.reg-box {
+    display: none;
+}
+
+.layui-form-item.links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.layui-btn {
+    width: 100%;
+}
+
+.layui-form-item {
+    position: relative;
+}
+
+.layui-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.layui-input {
+    padding-left: 30px;
+}
