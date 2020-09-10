@@ -19,19 +19,36 @@ $(function () {
       }
     },
   });
+
+  // 注册
   $("#layui-form").on("submit", function (e) {
     e.preventDefault();
-    $.post(
-      "http://ajax.frontend.itheima.net/api/reguser",
-      $(this).serialize(),
-      function (res) {
-        if (res.status === 0) {
-          alert(res.message);
-        } else {
-          alert(res.message);
-        }
-        // alert(1);
+    $.post("/api/reguser", $(this).serialize(), function (res) {
+      // console.log(res);
+
+      if (res.status === 0) {
+        $("#link-reg").click();
       }
-    );
+      // console.log(window);window里面有layer
+      layer.msg(res.message);
+    });
+  });
+
+  //登录
+  $("#layui-form-login").on("submit", function (e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+    $.ajax({
+      type: "post",
+      url: "/api/login",
+      data: formData,
+      success: function (res) {
+        // console.log(res);
+        if (res.status === 0) {
+          window.location.href = "index.html";
+          localStorage.setItem("token", res.token);
+        }
+      },
+    });
   });
 });
