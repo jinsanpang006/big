@@ -37,11 +37,10 @@ $(function () {
   //登录
   $("#layui-form-login").on("submit", function (e) {
     e.preventDefault();
-    var formData = $(this).serialize();
     $.ajax({
       type: "post",
       url: "/api/login",
-      data: formData,
+      data: $(this).serialize(),
       success: function (res) {
         // console.log(res);
         if (res.status === 0) {

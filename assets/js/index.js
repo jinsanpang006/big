@@ -1,16 +1,34 @@
+// 获取用户信息
 $(function () {
   //   var token = localStorage.getItem("token") || "";
-  $.ajax({
-    url: "/my/userinfo",
-    // headers: {
-    //   Authorization: token,
-    // },
-    success: function (res) {
-      console.log(res);
-      renderAvatar(res.data);
-    },
-  });
+  getUserInfo();
+  function getUserInfo() {
+    $.ajax({
+      url: "/my/userinfo",
+      // headers: {
+      //   Authorization: token,
+      // },
+      success: function (res) {
+        // console.log(res);
+        if (res.status == 1) {
+          return;
+        }
+        renderAvatar(res.data);
+      },
 
+      // 请求完成后 判断token有无
+      // complete: function (res) {
+      //   console.log(res);
+      //   if (res.responseJSON.status == 1) {
+      //     localStorage.removeItem("token");
+      //     window.location.href = "login.html";
+      //   }
+      // },
+    });
+  }
+  window.getUserInfo = getUserInfo;
+
+  // 根据返回的res 的data 里面的属性 设置头像以及名字
   function renderAvatar(data) {
     var name = data.nickname || data.username;
     $("#welcome").html("欢迎" + name);
@@ -25,6 +43,7 @@ $(function () {
     }
   }
 
+  // 退出
   $("#btn-logout").click(function () {
     layer.confirm("is not?", { icon: 3, title: "提示" }, function (index) {
       //do something
