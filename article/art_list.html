@@ -24,19 +24,13 @@
           <div class="layui-form-item">
             <div class="layui-inline">
               <div class="layui-input-inline" style="width: 100px">
-                <select name="city" lay-verify="">
-                  <option value="">所有分类</option>
-                  <option value="010">北京</option>
-                  <option value="021">上海</option>
-                  <option value="0571">杭州</option>
-                </select>
+                <select name="cate_id" id="p-select"></select>
               </div>
               <div class="layui-input-inline" style="width: 100px">
-                <select name="city" lay-verify="">
+                <select name="state" id="state-select">
                   <option value="">所有状态</option>
-                  <option value="010">北京</option>
-                  <option value="021">上海</option>
-                  <option value="0571">杭州</option>
+                  <option value="已发布">已发布</option>
+                  <option value="草稿">草稿</option>
                 </select>
               </div>
             </div>
@@ -75,15 +69,25 @@
           </tbody>
         </table>
         <!-- 内容区三  分页区 -->
-        <div id="page"></div>
+        <div id="wocao"></div>
       </div>
     </div>
 
+    <!-- 时间 -->
+    <script src="../assets/lib/moment.js"></script>
     <!-- 加载layui.all.js -->
     <script src="/assets/lib/layui/layui.all.js"></script>
     <script src="../assets/js/tool.js"></script>
     <!-- 加载自己的js -->
     <script src="/assets/js/art/art_list.js"></script>
+
+    <!-- select模板引擎 -->
+    <script type="text/html" id="tpl-cate">
+      <option value="">所有分类</option>
+      {{each data}}
+      <option value="{{$value.Id}}">{{$value.name}}</option>
+      {{/each}}
+    </script>
 
     <!-- 模板引擎 -->
     <script type="text/html" id="tpl-table">
@@ -92,14 +96,13 @@
         <td>{{$value.Id}}</td>
         <td>{{$value.title}}</td>
         <td>{{$value.cate_name}}</td>
-        <td>{{$value.pub_date}}</td>
+        <td>{{$value.pub_date|formaDate }}</td>
         <td>{{$value.state}}</td>
         <td>
           <button
             data-id="{{$value.Id}}"
             type="button"
             class="layui-btn layui-btn-xs edit"
-            data-id="{{$value.Id}}"
           >
             编辑
           </button>
@@ -107,7 +110,6 @@
             data-id="{{$value.Id}}"
             type="button"
             class="layui-btn layui-btn-danger layui-btn-xs delete"
-            data-id="{{$value.Id}}"
           >
             删除
           </button>
